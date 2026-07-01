@@ -9,7 +9,27 @@ const outfit = Outfit({ subsets: ["latin"], variable: "--font-outfit" });
 
 export const metadata: Metadata = {
   title: "CertiFix | Sistem Pakar Diagnosa Laptop",
-  description: "Aplikasi pakar berbasis web untuk mendiagnosa kerusakan laptop menggunakan Decision Tree, Forward Chaining, dan Certainty Factor.",
+  description: "Aplikasi sistem pakar cerdas untuk mendiagnosa kerusakan perangkat keras laptop Anda dengan cepat dan akurat menggunakan algoritma Decision Tree dan Certainty Factor.",
+  keywords: "sistem pakar, diagnosa laptop, certainty factor, forward chaining, decision tree, servis laptop, expert system",
+  authors: [{ name: "CertiFix Team" }],
+  openGraph: {
+    title: "CertiFix | Sistem Pakar Diagnosa Laptop",
+    description: "Deteksi kerusakan perangkat keras laptop Anda secara instan layaknya teknisi profesional.",
+    url: "https://certifix-laptop-expert-system.vercel.app",
+    siteName: "CertiFix",
+    locale: "id_ID",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "CertiFix | Laptop Expert System",
+    description: "Diagnosa kerusakan laptop Anda dengan cepat dan akurat.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+  metadataBase: new URL('https://certifix-laptop-expert-system.vercel.app'),
 };
 
 export default function RootLayout({
