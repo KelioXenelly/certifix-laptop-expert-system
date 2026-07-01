@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { createClient } from '@/utils/supabase/client';
 import { Button, CircularProgress } from '@mui/material';
@@ -8,7 +8,7 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import ReplayIcon from '@mui/icons-material/Replay';
 import { Damage } from '@/types';
 
-export default function ResultPage() {
+function ResultContent() {
   const supabase = createClient();
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -165,5 +165,18 @@ export default function ResultPage() {
         Lakukan Diagnosa Ulang
       </Button>
     </div>
+  );
+}
+
+export default function ResultPage() {
+  return (
+    <Suspense fallback={
+      <div className="flex flex-col items-center justify-center h-64 w-full">
+        <CircularProgress className="text-violet-500 mb-4" />
+        <p className="text-slate-400 animate-pulse">Memuat Hasil Diagnosa...</p>
+      </div>
+    }>
+      <ResultContent />
+    </Suspense>
   );
 }
