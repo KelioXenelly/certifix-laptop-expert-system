@@ -1,12 +1,14 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 import { login } from './actions';
 import AdminBodyStyler from '@/components/AdminBodyStyler';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 export default function LoginPage() {
+  const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
@@ -20,8 +22,9 @@ export default function LoginPage() {
     if (result?.error) {
       toast.error(result.error);
       setLoading(false);
-    } else {
+    } else if (result?.success) {
       toast.success('Login berhasil! Memuat dashboard...');
+      router.push('/admin');
     }
   };
 
