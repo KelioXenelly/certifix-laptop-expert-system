@@ -14,6 +14,11 @@ export default function ProfileSettings() {
     new: false,
     confirm: false,
   });
+  const [passwords, setPasswords] = useState({
+    current: '',
+    new: '',
+    confirm: '',
+  });
 
   const [userData, setUserData] = useState({ fullName: '', email: '' });
   const supabase = createClient();
@@ -55,10 +60,9 @@ export default function ProfileSettings() {
   const handleUpdatePassword = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     
-    const form = new FormData(e.currentTarget);
-    const currentPassword = form.get('currentPassword') as string;
-    const newPassword = form.get('newPassword') as string;
-    const confirmPassword = form.get('confirmPassword') as string;
+    const currentPassword = passwords.current;
+    const newPassword = passwords.new;
+    const confirmPassword = passwords.confirm;
     
     if (!currentPassword) {
       toast.error('Kata sandi saat ini harus diisi!');
@@ -99,7 +103,8 @@ export default function ProfileSettings() {
       toast.error('Gagal memperbarui kata sandi: ' + error.message);
     } else {
       toast.success('Kata sandi berhasil diperbarui!');
-      e.currentTarget.reset();
+      setPasswords({ current: '', new: '', confirm: '' });
+      setShowPassword({ current: false, new: false, confirm: false });
     }
   };
 
@@ -193,6 +198,8 @@ export default function ProfileSettings() {
                     name="currentPassword"
                     type={showPassword.current ? 'text' : 'password'}
                     required
+                    value={passwords.current}
+                    onChange={(e) => setPasswords({ ...passwords, current: e.target.value })}
                     className="w-full rounded-xl border border-slate-200 px-4 py-2.5 pr-10 text-slate-800 text-sm focus:outline-none focus:ring-4 focus:ring-sky-500/10 focus:border-sky-500 transition-all bg-white"
                   />
                   <button
@@ -214,6 +221,8 @@ export default function ProfileSettings() {
                     name="newPassword"
                     type={showPassword.new ? 'text' : 'password'}
                     required
+                    value={passwords.new}
+                    onChange={(e) => setPasswords({ ...passwords, new: e.target.value })}
                     className="w-full rounded-xl border border-slate-200 px-4 py-2.5 pr-10 text-slate-800 text-sm focus:outline-none focus:ring-4 focus:ring-sky-500/10 focus:border-sky-500 transition-all bg-white"
                   />
                   <button
@@ -235,6 +244,8 @@ export default function ProfileSettings() {
                     name="confirmPassword"
                     type={showPassword.confirm ? 'text' : 'password'}
                     required
+                    value={passwords.confirm}
+                    onChange={(e) => setPasswords({ ...passwords, confirm: e.target.value })}
                     className="w-full rounded-xl border border-slate-200 px-4 py-2.5 pr-10 text-slate-800 text-sm focus:outline-none focus:ring-4 focus:ring-sky-500/10 focus:border-sky-500 transition-all bg-white"
                   />
                   <button
